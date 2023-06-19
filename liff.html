@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ChatRecipe前端介面</title>
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<script>
+	var liffID = '1661174807-znjeKJaR';
+	// 這邊開始寫使用其他功能
+	function initializeApp() {  //初始化LIFF
+	 	liff.init({ 
+	 		liffId: liffID 
+	 	}).then(function() {
+	 		console.log('LIFF init');
+	 	}).catch(function(error) {
+	 		console.log(error);
+	 	});
+	}
+	
+	function pushMsg(msg) {
+			
+		liff.sendMessages([  //推播訊息
+			{
+				type: 'text',
+			  	text: msg
+			}
+		])
+		.then(function(res) {
+			console.log(res)
+		})
+		.catch(function(error) {
+			console.log(error);
+			window.alert('Error sending message:', error);
+		});
+		
+	}
+	
+	// 
+	document.getElementById('sure').addEventListener('click', function(){
+		pushMsg(document.getElementById("output").value);	
+	});
+
+</script>
+</head>
+<body>
+    <br>
+    <h1><center>歡迎使用ChatRecipe聊天食譜機器人73</center></h1>
+    <div class="row" style="margin: 10px">
+        <div class="col-6" style="margin: 5px auto;">
+            <center>
+                <label>人數(ex: 若為5人，請輸入5人份)</label>
+                <input type="text" id="people" value="請給我" name="people">
+                <br />
+                <label>飲食偏好</label>
+                <input type="text" id="like_food" value="要有" name="like_food">
+                <br />
+                <label>飲食禁忌</label>
+                <input type="text" id="no_food" value="不要有" name="no_food">
+                <br />    
+                <input type="text" id="output">        
+                <button id="sure">送出</button>
+				<button id="check" onclick="displayInput()">確認</button>
+						
+            </center>            
+        </div>
+    </div>
+	<script>
+		function displayInput() {
+			var element = document.getElementById("people").value+document.getElementById("like_food").value+document.getElementById("no_food").value;
+			document.getElementById("output").value = element;
+		}
+	</script>
+</body>
+</html>
