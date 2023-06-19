@@ -32,8 +32,8 @@
 			console.log(res)
 		})
 		.catch(function(error) {
-			console.log(error);
-			window.alert('Error sending message:', error);
+			var errorMessage = error.message || 'Unknown error';
+			window.alert('Error sending message:', errorMessage);
 		});
 		
 	}
